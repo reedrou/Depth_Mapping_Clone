@@ -6,7 +6,7 @@ import signal
 
 keep_running = True
 last_time = 0
-
+tilt 0
 
 def body(dev, ctx):
     global last_time
@@ -15,9 +15,20 @@ def body(dev, ctx):
     if time.time() - last_time < 3:
         return
     last_time = time.time()
-    led = random.randint(0, 6)
-    tilt = random.randint(0, 30)
+    
+    # rotate through the different colors
+    if led > 6: 
+        led = 0
+    else: 
+        led = led + 1
     freenect.set_led(dev, led)
+    # tilt back and forth
+    if (tilt > 30 || tilt < 0): 
+       tilt = 0
+    if (time.time() % 30 < 15): 
+        tilt = tile + 5
+    else: 
+        tilt = tilt - 5
     freenect.set_tilt_degs(dev, tilt)
     print('led[%d] tilt[%d] accel[%s]' % (led, tilt, freenect.get_accel(dev)))
 
