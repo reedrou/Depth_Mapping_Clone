@@ -23,7 +23,7 @@ def body(dev, ctx):
         led = led + 1
     freenect.set_led(dev, led)
     # tilt back and forth
-    if (tilt > 30 || tilt < 0): 
+    if (tilt > 30 or tilt < 0): 
        tilt = 0
     if (time.time() % 30 < 15): 
         tilt = tile + 5
